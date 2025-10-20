@@ -73,7 +73,7 @@ class SubscriptionController extends Controller
      * @throws Exception
      * @throws NotFoundHttpException
      */
-    public function actionVerify(string $phone, $book_id, int $author_id = null): \yii\web\Response|string
+    public function actionVerify(string $phone, $book_id, ?int $author_id = null): \yii\web\Response|string
     {
         $subscriber = Subscriber::findOne(['phone' => $phone]);
         if (!$subscriber) {
