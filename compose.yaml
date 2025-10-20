@@ -27,7 +27,7 @@ services:
       - php
 
   db:
-    image: mysql:8.4
+    image: mysql:9.2
     container_name: mysql-db
     restart: always
     environment:
@@ -46,6 +46,9 @@ services:
     volumes:
       - ./src:/var/www/html
     entrypoint: ["composer"]
+    depends_on:
+      - db
+      - php
 
 volumes:
   db_data:

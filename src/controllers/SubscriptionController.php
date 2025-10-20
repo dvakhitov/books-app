@@ -11,6 +11,7 @@ use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use \app\models\VerifyForm;
 
 class SubscriptionController extends Controller
 {
@@ -79,7 +80,7 @@ class SubscriptionController extends Controller
         if (!$subscriber) {
             throw new NotFoundHttpException('Подписчик не найден.');
         }
-        $model = new \app\models\VerifyForm();
+        $model = new VerifyForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->code == $subscriber->verification_code) {

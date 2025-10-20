@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%subscription}}`.
  */
-class m251020_161230_create_subscription_table extends Migration
+class m251020_161230_create_subscription_and_subscriber_tables extends Migration
 {
     /**
      * {@inheritdoc}

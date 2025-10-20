@@ -62,7 +62,7 @@ class RoutersController extends Controller
         $this->stdout(' ║' . PHP_EOL, Console::FG_GREY);
 
         // Разделитель
-        $this->stdout('╠' . str_repeat('═', $keyWidth + 2) . '╪' . str_repeat('═', $valueWidth + 2) . '╣' . PHP_EOL, Console::FG_GREY);
+        $this->stdout('╠' . str_repeat('═', $keyWidth + 2) . '╧' . str_repeat('═', $valueWidth + 2) . '╣' . PHP_EOL, Console::FG_GREY);
 
         // Содержимое
         foreach ($routes as $key => $value) {
