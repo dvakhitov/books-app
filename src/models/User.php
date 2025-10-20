@@ -7,7 +7,7 @@ use yii\base\Exception;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-class User extends ActiveRecord implements \yii\web\IdentityInterface
+final class User extends ActiveRecord implements IdentityInterface
 {
     public int $id;
     public string $username;

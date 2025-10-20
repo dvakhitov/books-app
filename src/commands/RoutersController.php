@@ -2,17 +2,18 @@
 
 namespace app\commands;
 
+use ReflectionClass;
+use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
-use ReflectionClass;
 use yii\helpers\FileHelper;
 
 /**
  * Вывод маршрутов приложения
  */
-class RoutersController extends Controller
+final class RoutersController extends Controller
 {
-    public $description = 'Выводит все маршруты приложения с контроллеров и URL rules';
+    public string $description         = 'Выводит все маршруты приложения с контроллеров и URL rules';
     public string $controllerNamespace = 'app\\controllers';
 
     /**
@@ -26,7 +27,7 @@ class RoutersController extends Controller
         $this->stdout("Scanning controllers folder for routes...\n\n", Console::FG_GREEN);
 
         $controllerRoutes = $this->getControllerRoutes();
-        $ruleRoutes = $this->getUrlManagerRoutes();
+        $ruleRoutes       = $this->getUrlManagerRoutes();
 
         $uniqueRules = array_diff($ruleRoutes, $controllerRoutes);
 
@@ -41,12 +42,13 @@ class RoutersController extends Controller
         }
 
         $this->stdout("\nDone.\n", Console::FG_GREEN);
+
         return 0;
     }
 
-    protected function drawTable(array $routes, int $keyColor, int $valueColor)
+    protected function drawTable(array $routes, int $keyColor, int $valueColor): void
     {
-        $keyWidth = max(array_map('strlen', array_keys($routes)));
+        $keyWidth   = max(array_map('strlen', array_keys($routes)));
         $valueWidth = max(array_map('strlen', array_values($routes)));
 
         $totalWidth = $keyWidth + $valueWidth + 7;
@@ -85,31 +87,30 @@ class RoutersController extends Controller
 
     protected function getControllerRoutes(): array
     {
-        $routes = [];
-        $controllersPath = \Yii::getAlias('@app/controllers');
-        $files = FileHelper::findFiles($controllersPath, ['only' => ['*Controller.php']]);
+        $routes          = [];
+        $controllersPath = Yii::getAlias('@app/controllers');
+        $files           = FileHelper::findFiles($controllersPath, ['only' => ['*Controller.php']]);
 
         foreach ($files as $file) {
-            $className = pathinfo($file, PATHINFO_FILENAME);
+            $className     = pathinfo($file, PATHINFO_FILENAME);
             $fullClassName = $this->controllerNamespace . '\\' . $className;
 
             if (!class_exists($fullClassName)) {
                 require_once $file;
             }
-            if (!class_exists($fullClassName)) continue;
+            if (!class_exists($fullClassName)) {
+                continue;
+            }
 
-            $reflection = new ReflectionClass($fullClassName);
+            $reflection   = new ReflectionClass($fullClassName);
             $controllerId = strtolower(str_replace('Controller', '', $className));
 
             foreach ($reflection->getMethods() as $method) {
                 if (
-                    $method->isPublic() &&
-                    $method->getDeclaringClass()->getName() === $fullClassName &&
-                    strpos($method->name, 'action') === 0 &&
-                    $method->name !== 'actions'
+                    $method->isPublic() && $method->getDeclaringClass()->getName() === $fullClassName && strpos($method->name, 'action') === 0 && $method->name !== 'actions'
                 ) {
-                    $actionId = strtolower(preg_replace('/([A-Z])/', '-$1', substr($method->name, 6)));
-                    $actionId = ltrim($actionId, '-');
+                    $actionId                                             = strtolower(preg_replace('/([A-Z])/', '-$1', substr($method->name, 6)));
+                    $actionId                                             = ltrim($actionId, '-');
                     $routes[$fullClassName . '::' . $method->name . '()'] = $controllerId . '/' . $actionId;
                 }
             }
@@ -120,13 +121,14 @@ class RoutersController extends Controller
 
     protected function getUrlManagerRoutes(): array
     {
-        $routes = [];
-        $urlManager = \Yii::$app->urlManager;
+        $routes     = [];
+        $urlManager = Yii::$app->urlManager;
         foreach ($urlManager->rules as $rule) {
-            $pattern = $rule->pattern ?? '';
-            $route = $rule->route ?? '';
+            $pattern          = $rule->pattern ?? '';
+            $route            = $rule->route   ?? '';
             $routes[$pattern] = $route;
         }
+
         return $routes;
     }
 }

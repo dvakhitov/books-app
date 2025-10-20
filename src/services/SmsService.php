@@ -2,7 +2,7 @@
 
 namespace app\services;
 
-readonly class SmsService
+final readonly class SmsService
 {
     private string $endpoint;
     private string $apiKey;

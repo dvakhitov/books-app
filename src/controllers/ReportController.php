@@ -6,7 +6,7 @@ use app\models\Author;
 use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 
-class ReportController extends Controller
+final class ReportController extends Controller
 {
     public function actionTopAuthors(?string $year = null): string
     {

@@ -6,7 +6,7 @@ use app\models\Book;
 use app\models\Subscriber;
 use app\models\Subscription;
 
-readonly class BookNotificationService
+final readonly class BookNotificationService
 {
     public function __construct(private SmsService $smsService = new SmsService())
     {

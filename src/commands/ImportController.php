@@ -4,10 +4,11 @@ namespace app\commands;
 
 use app\models\Author;
 use app\models\Book;
+use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
 
-class ImportController extends Controller
+final class ImportController extends Controller
 {
     /**
      * Импорт книг из JSON файла
@@ -15,7 +16,7 @@ class ImportController extends Controller
      */
     public function actionBooks(): int
     {
-        $file = \Yii::getAlias('@app/data/books.json'); // путь к твоему файлу
+        $file = Yii::getAlias('@app/data/books.json'); // путь к твоему файлу
         if (!file_exists($file)) {
             $this->stderr("❌ File not found: $file\n", Console::FG_RED);
 

@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
-class Subscription extends ActiveRecord
+final class Subscription extends ActiveRecord
 {
     public static function tableName(): string
     {

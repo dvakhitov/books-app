@@ -5,15 +5,16 @@ namespace app\controllers;
 use app\models\Author;
 use app\models\Subscriber;
 use app\models\SubscriberForm;
+use app\models\VerifyForm;
 use app\services\SmsService;
 use app\services\SubscriptionService;
+use Throwable;
 use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use \app\models\VerifyForm;
 
-class SubscriptionController extends Controller
+final class SubscriptionController extends Controller
 {
     private SmsService $smsService;
     private SubscriptionService $subscriptionService;
@@ -40,7 +41,7 @@ class SubscriptionController extends Controller
 
     /**
      * @throws Exception
-     * @throws NotFoundHttpException|\Throwable
+     * @throws NotFoundHttpException|Throwable
      */
     public function actionSubscribe(int $author_id, int $book_id): \yii\web\Response|string
     {

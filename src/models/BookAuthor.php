@@ -2,7 +2,9 @@
 
 namespace app\models;
 
-class BookAuthor extends \yii\db\ActiveRecord
+use yii\db\ActiveRecord;
+
+final class BookAuthor extends ActiveRecord
 {
     public static function tableName()
     {

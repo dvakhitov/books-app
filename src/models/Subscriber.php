@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the model class for table "subscriber".
  *
@@ -13,7 +15,7 @@ namespace app\models;
  *
  * @property Subscription[] $subscriptions
  */
-class Subscriber extends \yii\db\ActiveRecord
+final class Subscriber extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -26,7 +28,7 @@ class Subscriber extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['verification_code'], 'default', 'value' => null],
@@ -57,9 +59,9 @@ class Subscriber extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Subscriptions]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getSubscriptions(): \yii\db\ActiveQuery
+    public function getSubscriptions(): ActiveQuery
     {
         return $this->hasMany(Subscription::class, ['subscriber_id' => 'id']);
     }

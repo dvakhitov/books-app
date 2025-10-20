@@ -3,8 +3,9 @@
 namespace app\models;
 
 use yii\base\InvalidConfigException;
+use yii\db\ActiveRecord;
 
-class Author extends \yii\db\ActiveRecord
+final class Author extends ActiveRecord
 {
     public static function tableName(): string
     {

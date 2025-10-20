@@ -5,9 +5,10 @@ namespace app\services;
 use app\models\Author;
 use app\models\Subscriber;
 use app\models\Subscription;
+use Throwable;
 use Yii;
 
-readonly class SubscriptionService
+final readonly class SubscriptionService
 {
     public function __construct(private SmsService $smsService = new SmsService())
     {
@@ -54,7 +55,7 @@ readonly class SubscriptionService
      * @param Author $author
      * @param Subscriber $subscriber
      * @return void
-     * @throws \Throwable
+     * @throws Throwable
      * @throws \yii\db\Exception
      */
     public function confirm(Author $author, Subscriber $subscriber): void
@@ -75,7 +76,7 @@ readonly class SubscriptionService
             ]);
             $subscription->save(false);
             $transaction->commit();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $transaction->rollBack();
             throw $e;
         }

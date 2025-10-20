@@ -5,7 +5,7 @@ namespace app\models;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
-class AuthorSubscription extends ActiveRecord
+final class AuthorSubscription extends ActiveRecord
 {
     public static function tableName(): string
     {

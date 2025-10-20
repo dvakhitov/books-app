@@ -15,7 +15,7 @@ use yii\web\Response;
 /**
  * BookController implements the CRUD actions for Book model.
  */
-class BookController extends Controller
+final class BookController extends Controller
 {
     /**
      * @inheritDoc

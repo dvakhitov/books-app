@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\base\Model;
 
-class SubscriberForm extends Model
+final class SubscriberForm extends Model
 {
     public ?string $phone = null;
     public ?int $book_id  = null;
